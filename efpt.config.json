@@ -27,6 +27,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "tbl_facility",
+         "ObjectType": 0
+      },
+      {
          "Name": "tbl_flowcell",
          "ObjectType": 0
       },
@@ -43,11 +47,19 @@
          "ObjectType": 0
       },
       {
+         "Name": "tbl_sample",
+         "ObjectType": 0
+      },
+      {
          "Name": "tbl_sequencing_facility",
          "ObjectType": 0
       },
       {
          "Name": "tbl_users",
+         "ObjectType": 0
+      },
+      {
+         "Name": "tec_project_samples",
          "ObjectType": 0
       }
    ],

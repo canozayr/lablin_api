@@ -9,7 +9,9 @@ public partial class tbl_project
 {
     public int id { get; set; }
 
-    public DateTime? created_timestamp { get; set; }
+    public DateOnly? created_timestamp { get; set; }
+
+    public string project_number { get; set; }
 
     public string project_name { get; set; }
 
@@ -17,7 +19,7 @@ public partial class tbl_project
 
     public string sample_info { get; set; }
 
-    public int? date_of_submission { get; set; }
+    public DateTime? date_of_submission { get; set; }
 
     public int? sequencing_depth { get; set; }
 

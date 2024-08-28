@@ -9,12 +9,12 @@ namespace lablinAPI.Controllers
     public class ProjectPropiertiesController : Controller
     {
         [HttpGet("ByProjectID/{id}")]
-        public async Task<ActionResult<IEnumerable<tbl_project_properties>>> GetSingle(int id)
+        public async Task<tbl_project_properties?> GetSingle(int id)
         {
             using var db = new lablinContext();
-            List<tbl_project_properties> propertyList = await db.tbl_project_properties.Where(x => x.projectID == id).ToListAsync<tbl_project_properties>();
+            tbl_project_properties? project_properties = await db.tbl_project_properties.SingleOrDefaultAsync(x => x.projectID == id);
 
-            return propertyList;
+            return project_properties;
         }
 
         [HttpPost("new")]

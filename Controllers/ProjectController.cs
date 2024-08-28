@@ -1,6 +1,7 @@
 ﻿using lablinAPI.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 
 namespace lablinAPI.Controllers
 {
@@ -48,5 +49,19 @@ namespace lablinAPI.Controllers
             return new_project;
             
         }
+
+        #region TECS
+        [HttpGet("ProjectSamples/{projectID}")]
+        public async Task<List<tbl_sample>> GetProjectSamples(int projectID)
+        {
+            using (lablinContext db = new lablinContext())
+            {
+                FormattableString q = $"CALL sp_project_samples ({projectID})";
+                List<tbl_sample> samplesList = await db.tbl_sample.FromSql(q).ToListAsync<tbl_sample>();
+
+                return samplesList;
+            };
+        }
+        #endregion
     }
 }
