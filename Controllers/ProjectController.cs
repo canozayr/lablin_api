@@ -62,6 +62,28 @@ namespace lablinAPI.Controllers
                 return samplesList;
             };
         }
+
+        [HttpGet("LinkSample2Project/{projectID}/{sampleID}")]
+        public async Task LinkSample2Project(int projectID, int sampleID)
+        {
+            using (lablinContext db = new lablinContext())
+            {
+                tec_project_samples? project_sample = await db.tec_project_samples.Where(x=>x.projectID == projectID && x.sampleID == sampleID).FirstOrDefaultAsync();
+
+                if (project_sample == null)
+                {
+                    project_sample = new tec_project_samples();
+                    project_sample.projectID = projectID;
+                    project_sample.sampleID = sampleID;
+
+                    db.tec_project_samples.Add(project_sample);
+                    await db.SaveChangesAsync();
+                }
+
+                return;
+            };
+        }
+
         #endregion
     }
 }

@@ -12,9 +12,22 @@ namespace lablinAPI.Controllers
         public List<tbl_sample> Get()
         {
             using var db = new lablinContext();
-            List<tbl_sample> userList = db.tbl_sample.ToList<tbl_sample>();
-            return userList;
+            List<tbl_sample> sampleList = db.tbl_sample.ToList<tbl_sample>();
+            return sampleList;
             
+        }
+
+
+        [HttpGet("list_withLinked")]
+        public async Task<List<sp_samples_withLinked>> GetwithLinked()
+        {
+            using (lablinContext db = new lablinContext())
+            {
+                FormattableString q = $"CALL sp_samplesWithLinked()";
+                List<sp_samples_withLinked> samplesList = await db.Database.SqlQuery<sp_samples_withLinked>(q).ToListAsync<sp_samples_withLinked>();    // Set<tbl_sample>().FromSql(q).ToListAsync<sp_samples_withLinked>();
+
+                return samplesList;
+            };
         }
 
         [HttpGet("ByID/{id}")]
