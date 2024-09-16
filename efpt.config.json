@@ -39,6 +39,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "tbl_ngs_run_info",
+         "ObjectType": 0
+      },
+      {
          "Name": "tbl_project",
          "ObjectType": 0
       },

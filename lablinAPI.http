@@ -1,4 +1,4 @@
-@lablinAPI_HostAddress = http://localhost:5298
+@lablinAPI_HostAddress = http:/srv-01:5298
 
 GET {{lablinAPI_HostAddress}}/weatherforecast/
 Accept: application/json

@@ -6,40 +6,25 @@ namespace lablinAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class ProjectPropiertiesController : Controller
+    public class NGSController : Controller
     {
-        [HttpGet("ByProjectID/{id}")]
-        public async Task<tbl_project_properties?> GetSingle(int id)
+        [HttpGet("list")]
+        public async Task<List<tbl_ngs_run_info>> List()
         {
             using var db = new lablinContext();
-            tbl_project_properties? project_properties = await db.tbl_project_properties.SingleOrDefaultAsync(x => x.projectID == id);
 
-            return project_properties;
+            List<tbl_ngs_run_info> run_info_list = await db.tbl_ngs_run_info.ToListAsync();
+            return run_info_list;
+
         }
 
-        [HttpPost("new")]
-        public async Task<ActionResult<tbl_project_properties?>> PostProject(tbl_project_properties new_project_properties)
+        [HttpGet("ByID/{id}")]
+        public async Task<ActionResult<tbl_ngs_run_info?>> GetSingle(int id)
         {
-            if (new_project_properties.id != 0)
-            {
-                // update the project
-                using var db = new lablinContext();
-                db.Attach(new_project_properties);
-                db.Entry(new_project_properties).State = EntityState.Modified;
-                await db.SaveChangesAsync();
-            } else
-            {
-                // create new
-                using var db = new lablinContext();
-                db.tbl_project_properties.Add(new_project_properties);
-                await db.SaveChangesAsync();
-            }
-            
+            using var db = new lablinContext();
+            tbl_ngs_run_info? single_run_info = await db.tbl_ngs_run_info.SingleOrDefaultAsync(x => x.id == id);
 
-            return new_project_properties;
+            return single_run_info;
         }
-
-
-
     }
 }

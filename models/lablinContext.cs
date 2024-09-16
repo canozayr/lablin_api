@@ -30,6 +30,8 @@ public partial class lablinContext : DbContext
 
     public virtual DbSet<tbl_library_facility> tbl_library_facility { get; set; }
 
+    public virtual DbSet<tbl_ngs_run_info> tbl_ngs_run_info { get; set; }
+
     public virtual DbSet<tbl_project> tbl_project { get; set; }
 
     public virtual DbSet<tbl_project_properties> tbl_project_properties { get; set; }
@@ -44,19 +46,22 @@ public partial class lablinContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=localhost;database=lablin;uid=root;pwd=mercedes83", Microsoft.EntityFrameworkCore.ServerVersion.Parse("11.5.2-mariadb"));
+        => optionsBuilder.UseMySql("server=192.168.10.51;database=lablin;uid=root;pwd=mercedes83", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.39-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder
-            .UseCollation("latin1_swedish_ci")
-            .HasCharSet("latin1");
+            .UseCollation("utf8mb4_0900_ai_ci")
+            .HasCharSet("utf8mb4");
 
         modelBuilder.Entity<tbl_directories>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.path)
                 .IsRequired()
                 .HasColumnType("text");
@@ -66,7 +71,10 @@ public partial class lablinContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.name).HasColumnType("text");
         });
 
@@ -74,7 +82,10 @@ public partial class lablinContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.name).HasColumnType("text");
         });
 
@@ -82,7 +93,10 @@ public partial class lablinContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.name).HasColumnType("text");
         });
 
@@ -90,7 +104,10 @@ public partial class lablinContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.name).HasColumnType("text");
         });
 
@@ -98,45 +115,59 @@ public partial class lablinContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.name).HasMaxLength(100);
+        });
+
+        modelBuilder.Entity<tbl_ngs_run_info>(entity =>
+        {
+            entity.HasKey(e => e.id).HasName("PRIMARY");
+
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
+            entity.Property(e => e.runInfo).HasColumnType("text");
         });
 
         modelBuilder.Entity<tbl_project>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.date_of_submission).HasColumnType("datetime");
             entity.Property(e => e.length).HasMaxLength(100);
             entity.Property(e => e.project_name).HasColumnType("text");
             entity.Property(e => e.project_number).HasColumnType("text");
             entity.Property(e => e.sample_info).HasColumnType("text");
-            entity.Property(e => e.sequencing_depth).HasColumnType("int(11)");
-            entity.Property(e => e.year).HasColumnType("int(11)");
         });
 
         modelBuilder.Entity<tbl_project_properties>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
-            entity.Property(e => e.extractionKitID).HasColumnType("int(11)");
-            entity.Property(e => e.extractionMethodID).HasColumnType("int(11)");
-            entity.Property(e => e.libraryFacilityID).HasColumnType("int(11)");
-            entity.Property(e => e.projectID).HasColumnType("int(11)");
-            entity.Property(e => e.sequencingFacilityID).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
         });
 
         modelBuilder.Entity<tbl_sample>(entity =>
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.analysis).HasColumnType("text");
             entity.Property(e => e.analysisType).HasColumnType("text");
             entity.Property(e => e.batchDescription).HasColumnType("text");
-            entity.Property(e => e.batchNumber).HasColumnType("int(11)");
             entity.Property(e => e.cellType).HasColumnType("text");
             entity.Property(e => e.condition).HasColumnType("text");
             entity.Property(e => e.createdDateTime).HasColumnType("datetime");
@@ -147,10 +178,8 @@ public partial class lablinContext : DbContext
             entity.Property(e => e.parentalLine).HasColumnType("text");
             entity.Property(e => e.qualityOfLibrary).HasColumnType("text");
             entity.Property(e => e.raw_data).HasColumnType("text");
-            entity.Property(e => e.replicate).HasColumnType("int(11)");
             entity.Property(e => e.replicateDescription).HasColumnType("text");
             entity.Property(e => e.sampleName).HasColumnType("text");
-            entity.Property(e => e.sampleSubmissionSheetID).HasColumnType("int(11)");
             entity.Property(e => e.species).HasColumnType("text");
             entity.Property(e => e.technicalReplicateNumber).HasColumnType("text");
         });
@@ -159,7 +188,10 @@ public partial class lablinContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.name).HasMaxLength(100);
         });
 
@@ -167,7 +199,10 @@ public partial class lablinContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
+
             entity.Property(e => e.name).HasColumnType("text");
         });
 
@@ -175,9 +210,9 @@ public partial class lablinContext : DbContext
         {
             entity.HasKey(e => e.id).HasName("PRIMARY");
 
-            entity.Property(e => e.id).HasColumnType("int(11)");
-            entity.Property(e => e.projectID).HasColumnType("int(11)");
-            entity.Property(e => e.sampleID).HasColumnType("int(11)");
+            entity
+                .HasCharSet("latin1")
+                .UseCollation("latin1_swedish_ci");
         });
 
         OnModelCreatingPartial(modelBuilder);
