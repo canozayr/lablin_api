@@ -51,6 +51,20 @@ namespace lablinAPI.Controllers
         }
 
         #region TECS
+        [HttpGet("FavouriteProjects")]
+        public async Task<List<tbl_project>> GetFavouriteProjects([FromQuery] int[] projectIDs)
+        {
+
+            using (lablinContext db = new lablinContext())
+            {
+                string betterQuery = string.Join(",", projectIDs);
+                FormattableString q = $"SELECT * FROM tbl_project WHERE id in ({betterQuery})";
+                List<tbl_project> projectList = await (from p in db.tbl_project where projectIDs.Contains(p.id) select p).ToListAsync<tbl_project>();
+
+                return projectList;
+            };
+        }
+
         [HttpGet("ProjectSamples/{projectID}")]
         public async Task<List<tbl_sample>> GetProjectSamples(int projectID)
         {

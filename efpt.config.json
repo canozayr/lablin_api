@@ -47,6 +47,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "tbl_project_files",
+         "ObjectType": 0
+      },
+      {
          "Name": "tbl_project_properties",
          "ObjectType": 0
       },

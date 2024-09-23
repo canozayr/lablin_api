@@ -3,7 +3,7 @@ using Microsoft.Net.Http.Headers;
 var builder = WebApplication.CreateBuilder(args);
 var policyName = "_myAllowSpecificOrigins";
 // Add services to the container.
-builder.WebHost.UseUrls("http://srv-01:5000");
+// builder.WebHost.UseUrls("http://srv-01:5000");
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();

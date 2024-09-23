@@ -34,6 +34,8 @@ public partial class lablinContext : DbContext
 
     public virtual DbSet<tbl_project> tbl_project { get; set; }
 
+    public virtual DbSet<tbl_project_files> tbl_project_files { get; set; }
+
     public virtual DbSet<tbl_project_properties> tbl_project_properties { get; set; }
 
     public virtual DbSet<tbl_sample> tbl_sample { get; set; }
@@ -146,6 +148,15 @@ public partial class lablinContext : DbContext
             entity.Property(e => e.project_name).HasColumnType("text");
             entity.Property(e => e.project_number).HasColumnType("text");
             entity.Property(e => e.sample_info).HasColumnType("text");
+        });
+
+        modelBuilder.Entity<tbl_project_files>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PRIMARY");
+
+            entity.Property(e => e.createdDateTime).HasColumnType("datetime");
+            entity.Property(e => e.filePath).HasColumnType("text");
+            entity.Property(e => e.fileType).HasColumnType("text");
         });
 
         modelBuilder.Entity<tbl_project_properties>(entity =>
