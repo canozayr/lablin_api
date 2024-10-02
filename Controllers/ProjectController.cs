@@ -98,6 +98,40 @@ namespace lablinAPI.Controllers
             };
         }
 
+
+
+        [HttpGet("ProjectUsers/{projectID}")]
+        public async Task<List<tbl_users>> GetProjectUsers(int projectID)
+        {
+            using (lablinContext db = new lablinContext())
+            {
+                FormattableString q = $"CALL sp_project_users ({projectID})";
+                List<tbl_users> userList = await db.tbl_users.FromSql(q).ToListAsync<tbl_users>();
+
+                return userList;
+            }
+        }
+
+        [HttpGet("LinkUser2Project/{projectID}/{userID}")]
+        public async Task LinkUser2Project(int projectID, int userID)
+        {
+            using (lablinContext db = new lablinContext())
+            {
+                tbl_project_users? project_user = await db.tbl_project_users.Where(x => x.projectID == projectID && x.userID == userID).FirstOrDefaultAsync();
+
+                if (project_user == null)
+                {
+                    project_user = new tbl_project_users();
+                    project_user.projectID = projectID;
+                    project_user.userID = userID;
+
+                    db.tbl_project_users.Add(project_user);
+                    await db.SaveChangesAsync();
+                }
+
+                return;
+            };
+        }
         #endregion
     }
 }

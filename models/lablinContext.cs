@@ -38,6 +38,8 @@ public partial class lablinContext : DbContext
 
     public virtual DbSet<tbl_project_properties> tbl_project_properties { get; set; }
 
+    public virtual DbSet<tbl_project_users> tbl_project_users { get; set; }
+
     public virtual DbSet<tbl_sample> tbl_sample { get; set; }
 
     public virtual DbSet<tbl_sequencing_facility> tbl_sequencing_facility { get; set; }
@@ -166,6 +168,11 @@ public partial class lablinContext : DbContext
             entity
                 .HasCharSet("latin1")
                 .UseCollation("latin1_swedish_ci");
+        });
+
+        modelBuilder.Entity<tbl_project_users>(entity =>
+        {
+            entity.HasKey(e => e.ID).HasName("PRIMARY");
         });
 
         modelBuilder.Entity<tbl_sample>(entity =>

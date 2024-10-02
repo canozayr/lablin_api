@@ -55,6 +55,10 @@
          "ObjectType": 0
       },
       {
+         "Name": "tbl_project_users",
+         "ObjectType": 0
+      },
+      {
          "Name": "tbl_sample",
          "ObjectType": 0
       },
